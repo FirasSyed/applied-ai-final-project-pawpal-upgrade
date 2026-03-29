@@ -8,9 +8,11 @@ class Task:
         self.completed = False
 
     def check_off(self):
+        """Mark this task as completed."""
         self.completed = True
 
     def edit(self, task_name=None, duration=None, priority=None, frequency=None, deadline=None):
+        """Update any combination of task fields; unchanged fields keep their current values."""
         if task_name is not None:
             self.task_name = task_name
         if duration is not None:
@@ -35,9 +37,11 @@ class Pet:
         self.tasks = []
 
     def add_task(self, task):
+        """Add a Task to this pet's task list."""
         self.tasks.append(task)
 
     def edit_info(self, name=None, dob=None, animal=None):
+        """Update any combination of pet info fields; unchanged fields keep their current values."""
         if name is not None:
             self.name = name
         if dob is not None:
@@ -46,6 +50,7 @@ class Pet:
             self.animal = animal
 
     def get_pending_tasks(self):
+        """Return all tasks that have not been completed yet."""
         return [t for t in self.tasks if not t.completed]
 
     def __repr__(self):
@@ -60,21 +65,27 @@ class Owner:
         self._logged_in = False
 
     def login(self):
+        """Mark the owner as logged in."""
         self._logged_in = True
 
     def logout(self):
+        """Mark the owner as logged out."""
         self._logged_in = False
 
     def access_pets(self):
+        """Return the list of the owner's pets."""
         return self.pets
 
     def add_pet(self, pet):
+        """Add a Pet to the owner's pet list."""
         self.pets.append(pet)
 
     def remove_pet(self, pet):
+        """Remove a Pet from the owner's pet list."""
         self.pets.remove(pet)
 
     def get_all_tasks(self):
+        """Return every task across all of the owner's pets."""
         tasks = []
         for pet in self.pets:
             tasks.extend(pet.tasks)
@@ -90,12 +101,15 @@ class Scheduler:
         self.daily_plan = []
 
     def add_task(self, pet, task):
+        """Add a Task to the given pet's task list."""
         pet.add_task(task)
 
     def remove_task(self, pet, task):
+        """Remove a Task from the given pet's task list."""
         pet.tasks.remove(task)
 
     def generate_plan(self):
+        """Build today's schedule by sorting pending tasks by priority and fitting them within available time."""
         # Collect all pending tasks across all pets
         pending = []
         for pet in self.owner.pets:
