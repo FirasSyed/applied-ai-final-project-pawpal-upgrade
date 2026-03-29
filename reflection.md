@@ -4,6 +4,30 @@
 
 **a. Initial design**
 
+Core actions the user should be able to do:
+1. Add pet care task
+2. See duration of task
+3. Add pet to do each task
+4. Edit info for each task
+
+Objects for system:
+Owner,
+    Attributes: has pets
+    Methods: Can be logged into, can access pets to edit, can log out of.
+Pet, 
+    Attributes: tasks and info
+    Methods: Can be added, go into tasks/info to change them, or deleted
+Info, 
+    Attributes: has name, DOB, animal. 
+    Methods: Can be edited.
+Tasks, 
+    Attributes:has task name, task deadline, task duration, priority. 
+    Methods: can check off tasks, added, and edited.
+Planner,
+    Attributes: calendar, something to be able to take tasks and create a daily plan
+    Methods: Can add task, can remove task, can generate plans putting higher priority tasks first
+
+
 - Briefly describe your initial UML design.
 - What classes did you include, and what responsibilities did you assign to each?
 
