@@ -13,17 +13,14 @@ Core actions the user should be able to do:
 Objects for system:
 Owner,
     Attributes: has pets
-    Methods: Can be logged into, can access pets to edit, can log out of.
+    Methods: Can be logged into, can access pets to edit, add pets, can log out of, and can remove pets.
 Pet, 
-    Attributes: tasks and info
-    Methods: Can be added, go into tasks/info to change them, or deleted
-Info, 
-    Attributes: has name, DOB, animal. 
-    Methods: Can be edited.
+    Attributes: tasks, name, DOB, animal
+    Methods: add tasks, or edit info.
 Tasks, 
     Attributes:has task name, task deadline, task duration, priority. 
-    Methods: can check off tasks, added, and edited.
-Planner,
+    Methods: can check off tasks, and edited.
+Scheduler,
     Attributes: calendar, something to be able to take tasks and create a daily plan
     Methods: Can add task, can remove task, can generate plans putting higher priority tasks first
 
@@ -33,6 +30,7 @@ Planner,
 
 **b. Design changes**
 
+I initially wrote that you could add tasks in the task view but changed that to be part of the higher class scheduler. I also initially made the information of the pet it's own class, and also allowed for the pet class to add or delete pets but changed that so the owner can do it.
 - Did your design change during implementation?
 - If yes, describe at least one change and why you made it.
 
