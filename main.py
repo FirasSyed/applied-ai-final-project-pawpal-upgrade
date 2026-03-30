@@ -5,7 +5,6 @@ from pawpal_system import Task, Pet, Owner, Scheduler
 # Setup
 # ---------------------------------------------------------------------------
 owner = Owner("Jordan", time_available=90)
-owner.login()
 
 dog = Pet("Buddy", "2020-05-01", "dog")
 cat = Pet("Mochi", "2021-09-15", "cat")

@@ -27,8 +27,8 @@ Your final app should:
 ### Setup
 
 ```bash
-python -m venv .venv
-source .venv/bin/activate  # Windows: .venv\Scripts\activate
+python -m venv venv
+source venv/bin/activate  # Windows: venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
@@ -50,6 +50,7 @@ The suite contains **27 tests** organized across five areas:
 
 | Area | Tests | What is verified |
 |---|---|---|
+| **Core task & pet operations** | 2 | `check_off()` marks a task completed; `add_task()` increments the pet's task count |
 | **Recurring tasks** | 5 | Daily tasks roll over +1 day; weekly tasks roll over +7 days; `"once"` tasks produce no successor; `Pet.complete_task` auto-appends the next occurrence |
 | **Schedule generation** | 7 | Highest-priority tasks fill the plan first; tasks that exceed the time budget are skipped; future-dated and already-completed tasks are excluded; a pet with no tasks yields an empty plan |
 | **Sorting** | 3 | Tasks sort chronologically by `"HH:MM"`; tasks with no time land at the end; two tasks at the same time both survive in the sorted list |
