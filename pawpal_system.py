@@ -1,3 +1,4 @@
+import json
 from datetime import date, timedelta
 
 
@@ -126,15 +127,6 @@ class Owner:
         self.name = name
         self.pets = []
         self.time_available = time_available
-        self._logged_in = False
-
-    def login(self):
-        """Mark the owner as logged in."""
-        self._logged_in = True
-
-    def logout(self):
-        """Mark the owner as logged out."""
-        self._logged_in = False
 
     def access_pets(self):
         """Return the list of the owner's pets."""
@@ -154,6 +146,59 @@ class Owner:
         for pet in self.pets:
             tasks.extend(pet.tasks)
         return tasks
+
+    def save_to_json(self, filepath):
+        """Serialize the owner, all pets, and all tasks to a JSON file."""
+        data = {
+            "name": self.name,
+            "time_available": self.time_available,
+            "pets": [
+                {
+                    "name": pet.name,
+                    "dob": pet.dob,
+                    "animal": pet.animal,
+                    "tasks": [
+                        {
+                            "task_name": task.task_name,
+                            "duration": task.duration,
+                            "priority": task.priority,
+                            "frequency": task.frequency,
+                            "deadline": str(task.deadline) if task.deadline else None,
+                            "time": task.time,
+                            "due_date": str(task.due_date),
+                            "completed": task.completed,
+                        }
+                        for task in pet.tasks
+                    ],
+                }
+                for pet in self.pets
+            ],
+        }
+        with open(filepath, "w") as f:
+            json.dump(data, f, indent=2)
+
+    @classmethod
+    def load_from_json(cls, filepath):
+        """Reconstruct an Owner (with pets and tasks) from a JSON file."""
+        with open(filepath) as f:
+            data = json.load(f)
+        owner = cls(data["name"], time_available=data["time_available"])
+        for pd in data["pets"]:
+            pet = Pet(pd["name"], pd["dob"], pd["animal"])
+            for td in pd["tasks"]:
+                task = Task(
+                    td["task_name"],
+                    duration=td["duration"],
+                    priority=td["priority"],
+                    frequency=td["frequency"],
+                    deadline=date.fromisoformat(td["deadline"]) if td["deadline"] else None,
+                    time=td["time"],
+                    due_date=date.fromisoformat(td["due_date"]),
+                )
+                task.completed = td["completed"]
+                pet.tasks.append(task)
+            owner.pets.append(pet)
+        return owner
 
     def __repr__(self):
         return f"Owner({self.name!r}, {len(self.pets)} pets)"
@@ -215,6 +260,40 @@ class Scheduler:
 
         self.daily_plan = plan
         return plan
+
+    # ------------------------------------------------------------------
+    # Slot assignment
+    # ------------------------------------------------------------------
+
+    def assign_slots(self, start_time="08:00"):
+        """
+        Fill in start times for tasks in the daily plan that have none.
+
+        Works through the plan in order, maintaining a cursor (minutes since
+        midnight). Fixed-time tasks advance the cursor to their end if they
+        would otherwise overlap. Unscheduled tasks receive the next open slot
+        and advance the cursor by their duration.
+
+        Args:
+            start_time: Earliest assignable slot as "HH:MM" (default "08:00").
+
+        Returns:
+            The updated daily_plan list.
+        """
+        h, m = map(int, start_time.split(":"))
+        cursor = h * 60 + m
+
+        for _, task in self.daily_plan:
+            if task.time is not None:
+                th, tm = map(int, task.time.split(":"))
+                end = th * 60 + tm + task.duration
+                if end > cursor:
+                    cursor = end
+            else:
+                task.time = f"{cursor // 60:02d}:{cursor % 60:02d}"
+                cursor += task.duration
+
+        return self.daily_plan
 
     # ------------------------------------------------------------------
     # Sorting

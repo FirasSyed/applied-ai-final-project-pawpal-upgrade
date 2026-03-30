@@ -71,3 +71,31 @@ Confidence: ★★★★☆ (4/5) — rationale: all 27 backend tests pass clean
 5. Add tests to verify key behaviors.
 6. Connect your logic to the Streamlit UI in `app.py`.
 7. Refine UML so it matches what you actually built.
+
+### Features
+
+Priority-based scheduling — ranks all pending tasks highest-priority-first, then fits them within the owner's available time budget. Lower-priority tasks are dropped when time runs out.
+
+Due-date filtering — The scheduler only considers tasks whose due_date is today or earlier, so future-scheduled tasks are automatically excluded from the day's plan.
+
+Sort by start time — orders the daily plan chronologically using each task's HH:MM start time. Tasks with no time set are placed at the end.
+
+Conflict detection — scans the daily plan for tasks sharing the same start time slot and surfaces a warning for each conflicting time, listing every affected pet and task by name.
+
+Task filtering — Queries all tasks across every pet, with optional filters for a specific pet and/or completion status (pending, completed, or both).
+
+Automatic recurrence — Marks a task complete and returns the next occurrence with an updated due date: +1 day for daily, +7 days for weekly. One-off tasks (once) produce no successor.
+
+Auto-assign open slots — `Scheduler.assign_slots(start_time)` fills in start times for tasks that have none. It walks the daily plan in order, tracking a time cursor. Fixed-time tasks advance the cursor to their end; unscheduled tasks receive the next open slot and consume their duration. The result is a fully timed schedule with no manual clock arithmetic.
+
+Persistent storage — Owner, pet, and task data is serialized to `pawpal_data.json` on every save and reloaded automatically on startup. A legacy `.pkl` file is read as a one-time migration fallback if no JSON file exists yet.
+
+Priority color-coding — Tasks and schedule rows display 🔴 High, 🟡 Medium, and 🟢 Low labels for at-a-glance priority scanning.
+
+### Agent Mode — Challenge 1
+
+The `assign_slots` algorithm was designed with Agent Mode. The prompt described the problem: tasks in the daily plan may have no start time, and a simple sort can't fill those gaps. Agent Mode was asked to reason through a cursor-based approach — advance past fixed-time tasks, fill gaps for unscheduled ones — and translate that into a clean method that mutates `task.time` in place and returns the updated plan. The resulting loop pattern (tracking `cursor` in minutes, branching on whether `task.time` is set) came directly from that generation and was then reviewed and integrated into `Scheduler`.
+
+### Demo
+
+![PawPal+ demo](demo.png)
