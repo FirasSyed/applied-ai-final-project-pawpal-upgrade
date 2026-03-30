@@ -32,6 +32,10 @@ source .venv/bin/activate  # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
+
+### Smarter Scheduling
+Tasks have a start time value that is optional to add. Due dates schedule tasks due today or earlier in the week, if it is recurring, setting as complete will automatically create the next one in the recurrence. Sorting the plans by time will order the plan chronologically with tasks set to no time going last. Tasks can also be filtered by the pet name or if they are completed or not. Conflict detection is also present if two tasks start at the same time.
+
 ### Suggested workflow
 
 1. Read the scenario carefully and identify requirements and edge cases.

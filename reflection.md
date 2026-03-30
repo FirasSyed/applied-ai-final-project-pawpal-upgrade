@@ -42,11 +42,10 @@ I initially wrote that you could add tasks in the task view but changed that to 
 
 - What constraints does your scheduler consider (for example: time, priority, preferences)?
 - How did you decide which constraints mattered most?
+The scheduler primarily checks for the hour and minute time selected for the beginning of the task.
 
 **b. Tradeoffs**
-
-- Describe one tradeoff your scheduler makes.
-- Why is that tradeoff reasonable for this scenario?
+The detector only flags issues when tasks occur with the same start time in both minutes or hours. The logic doesn't extend to checking if the durations overlap. Adding in this functionality would necessitate to add logic like comparing if the ranges don't collide.
 
 ---
 
