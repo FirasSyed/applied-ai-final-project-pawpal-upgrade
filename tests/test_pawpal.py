@@ -1,6 +1,6 @@
 from datetime import date, timedelta
 import pytest
-from pawpal_system import Task, Pet, Owner, Scheduler
+from pawpal.system import Task, Pet, Owner, Scheduler
 
 
 # ---------------------------------------------------------------------------

@@ -1,5 +1,10 @@
 import json
+import os
+import subprocess
+import google.generativeai as genai
 from datetime import date, timedelta
+
+from openai import api_key
 
 
 class Task:
@@ -214,6 +219,7 @@ class Scheduler:
         """
         self.owner = owner
         self.daily_plan = []
+        self.ai = AIEnhancer()
 
     # ------------------------------------------------------------------
     # Task management helpers
@@ -369,5 +375,51 @@ class Scheduler:
                 warnings.append(f"WARNING — conflict at {slot}: {names}")
         return warnings
 
+    def get_explanation(self):
+        """
+        Generate an AI-powered explanation of the daily plan using retrieved knowledge.
+        """
+        return self.ai.generate_explanation(self.daily_plan, self.owner.name, self.owner.time_available)
+
     def __repr__(self):
         return f"Scheduler(owner={self.owner.name!r}, {len(self.daily_plan)} tasks planned)"
+
+
+class AIEnhancer:
+    def __init__(self):
+        kb_path = "pawpal/knowledge_base.json"
+        with open(kb_path,"r") as file:
+            self.kb = json.load(file)
+        genai.configure(api_key=(subprocess.check_output("powershell -c \"[Environment]::GetEnvironmentVariable('GEMINI_API_KEY','User')\"").decode('ascii'))[:-2])
+        self.model = genai.GenerativeModel("models/gemini-2.5-flash")
+
+    def retrieve_info(self, species):
+        return self.kb.get(species.lower(), "General pet care advice: Ensure regular feeding, exercise, and vet checkups.")
+
+    def generate_explanation(self, plan, owner_name, time_available):
+        species = list(set(pet.animal for pet, _ in plan))
+        retrieved = [self.retrieve_info(s) for s in species]
+        plan_str = "\n".join(f"- {pet.name} ({pet.animal}): {task.task_name} at {task.time} (priority {task.priority})" for pet, task in plan)
+        prompt = f"""
+You are a helpful pet care assistant. Based on the following knowledge:
+
+{chr(10).join(retrieved)}
+
+The owner {owner_name} has {time_available} minutes available today.
+
+The generated daily plan is:
+
+{plan_str}
+
+Explain why this plan was chosen, incorporating the retrieved knowledge to provide personalized advice.
+
+Keep the explanation concise and helpful."""
+        try:
+            response = self.model.generate_content(prompt)
+            explanation = response.text.strip()
+            # Log
+            print(f"AI Prompt: {prompt}")
+            print(f"AI Response: {explanation}")
+            return explanation
+        except Exception as e:
+            return f"Unable to generate AI explanation: {e}"

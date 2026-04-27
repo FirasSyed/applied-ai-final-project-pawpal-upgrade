@@ -2,15 +2,15 @@ import os
 import pickle
 from datetime import date
 import streamlit as st
-from pawpal_system import Owner, Pet, Task, Scheduler
+from system import Owner, Pet, Task, Scheduler
 
 PRIORITY_MAP = {"low": 1, "medium": 2, "high": 3}
 PRIORITY_LABEL = {1: "low", 2: "medium", 3: "high"}
 PRIORITY_EMOJI = {1: "🟢 low", 2: "🟡 medium", 3: "🔴 high"}
 SPECIES_EMOJI = {"dog": "🐕", "cat": "🐈", "rabbit": "🐇", "bird": "🐦", "fish": "🐠", "hamster": "🐹"}
 
-JSON_FILE = "pawpal_data.json"
-LEGACY_PKL = "pawpal_data.pkl"
+JSON_FILE = os.path.join(os.path.dirname(__file__), "pawpal_data.json")
+LEGACY_PKL = os.path.join(os.path.dirname(__file__), "pawpal_data.pkl")
 
 
 def species_icon(animal):
@@ -317,6 +317,11 @@ if st.button("Generate schedule"):
             for p, task in plan
         ]
         st.table(rows)
+
+        # AI Explanation
+        explanation = scheduler.get_explanation()
+        st.subheader("AI-Powered Explanation")
+        st.write(explanation)
 
 st.divider()
 

@@ -1,5 +1,5 @@
 from datetime import date, timedelta
-from pawpal_system import Task, Pet, Owner, Scheduler
+from .system import Task, Pet, Owner, Scheduler
 
 # ---------------------------------------------------------------------------
 # Setup

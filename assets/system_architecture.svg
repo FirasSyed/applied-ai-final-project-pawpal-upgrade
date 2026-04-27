@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="700" viewBox="0 0 900 700">
+  <!-- Define styles -->
+  <defs>
+    <style>
+      .box { fill: #e8f4f8; stroke: #2c5282; stroke-width: 2; }
+      .box-title { font-weight: bold; font-size: 14px; fill: #2c5282; }
+      .box-text { font-size: 12px; fill: #2c5282; }
+      .arrow { stroke: #2c5282; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+      .label { font-size: 11px; fill: #2c5282; }
+      .ai-box { fill: #fff5e6; stroke: #c05621; stroke-width: 2; }
+      .data-box { fill: #f0f0f0; stroke: #666; stroke-width: 2; }
+      .header { font-weight: bold; font-size: 16px; fill: #1a202c; text-anchor: middle; }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#2c5282"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="450" y="30" class="header">PawPal AI System Architecture</text>
+
+  <!-- User -->
+  <rect x="375" y="60" width="150" height="60" class="box" rx="5"/>
+  <text x="450" y="80" class="box-title" text-anchor="middle">👤 User</text>
+  <text x="450" y="105" class="box-text" text-anchor="middle">(Pet Owner)</text>
+
+  <!-- Streamlit UI -->
+  <rect x="325" y="160" width="250" height="80" class="box" rx="5"/>
+  <text x="450" y="180" class="box-title" text-anchor="middle">🐾 Streamlit UI</text>
+  <text x="450" y="200" class="box-text" text-anchor="middle">• Add/Edit Pets and Tasks</text>
+  <text x="450" y="220" class="box-text" text-anchor="middle">• View Daily Schedule</text>
+
+  <!-- Arrow: User -> UI -->
+  <path d="M 450 120 L 450 160" class="arrow"/>
+  <text x="465" y="140" class="label">Input</text>
+
+  <!-- Core Scheduler -->
+  <rect x="325" y="290" width="250" height="100" class="box" rx="5"/>
+  <text x="450" y="310" class="box-title" text-anchor="middle">⚙️ Core Scheduler</text>
+  <text x="450" y="330" class="box-text" text-anchor="middle">• Priority-based scheduling</text>
+  <text x="450" y="350" class="box-text" text-anchor="middle">• Time budget constraints</text>
+  <text x="450" y="370" class="box-text" text-anchor="middle">• Conflict detection</text>
+
+  <!-- Arrow: UI -> Scheduler -->
+  <path d="M 450 240 L 450 290" class="arrow"/>
+  <text x="465" y="265" class="label">Schedule</text>
+
+  <!-- AI Enhancer with RAG -->
+  <rect x="50" y="290" width="220" height="120" class="ai-box" rx="5"/>
+  <text x="160" y="310" class="box-title" text-anchor="middle">🤖 AI Enhancer</text>
+  <text x="160" y="330" class="box-text" text-anchor="middle">(RAG Module)</text>
+  <text x="160" y="350" class="box-text" text-anchor="middle">• Retrieve species-specific</text>
+  <text x="160" y="365" class="box-text" text-anchor="middle">  care knowledge</text>
+  <text x="160" y="385" class="box-text" text-anchor="middle">• Generate explanations</text>
+
+  <!-- Knowledge Base -->
+  <rect x="35" y="460" width="250" height="80" class="data-box" rx="5"/>
+  <text x="160" y="480" class="box-title" text-anchor="middle">📚 Knowledge Base</text>
+  <text x="160" y="500" class="box-text" text-anchor="middle">JSON file with species-specific</text>
+  <text x="160" y="520" class="box-text" text-anchor="middle">pet care guidelines</text>
+
+  <!-- Arrow: AI -> Knowledge Base -->
+  <path d="M 160 410 L 160 460" class="arrow"/>
+  <text x="175" y="435" class="label">Retrieve</text>
+
+  <!-- OpenAI LLM -->
+  <rect x="605" y="290" width="220" height="120" class="ai-box" rx="5"/>
+  <text x="715" y="310" class="box-title" text-anchor="middle">🧠 OpenAI LLM</text>
+  <text x="715" y="330" class="box-text" text-anchor="middle">(GPT-3.5-turbo)</text>
+  <text x="715" y="350" class="box-text" text-anchor="middle">• Generate explanations</text>
+  <text x="715" y="370" class="box-text" text-anchor="middle">  with retrieved knowledge</text>
+
+  <!-- Arrow: Scheduler -> AI -->
+  <path d="M 325 340 L 270 340" class="arrow"/>
+  <text x="290" y="330" class="label">Request</text>
+
+  <!-- Arrow: AI -> OpenAI -->
+  <path d="M 270 340 L 605 340" class="arrow"/>
+  <text x="430" y="330" class="label">Augment plan</text>
+
+  <!-- Arrow: OpenAI -> Scheduler -->
+  <path d="M 605 350 L 575 350" class="arrow"/>
+  <text x="585" y="370" class="label">Response</text>
+
+  <!-- Daily Plan & Display -->
+  <rect x="325" y="460" width="250" height="100" class="box" rx="5"/>
+  <text x="450" y="480" class="box-title" text-anchor="middle">📋 Daily Plan + Explanation</text>
+  <text x="450" y="500" class="box-text" text-anchor="middle">• Optimized schedule</text>
+  <text x="450" y="520" class="box-text" text-anchor="middle">• AI-powered insights</text>
+  <text x="450" y="540" class="box-text" text-anchor="middle">• Evidence-based advice</text>
+
+  <!-- Arrow: Scheduler -> Plan -->
+  <path d="M 450 390 L 450 460" class="arrow"/>
+  <text x="465" y="425" class="label">Generate</text>
+
+  <!-- Arrow: Plan -> UI -->
+  <path d="M 450 240 L 450 460" class="arrow" stroke-dasharray="5,5"/>
+  <text x="425" y="350" class="label">Display</text>
+
+  <!-- Arrow: UI -> User -->
+  <path d="M 450 240 L 450 120" class="arrow" stroke-dasharray="5,5"/>
+  <text x="380" y="180" class="label">Show result</text>
+
+  <!-- Testing component -->
+  <rect x="600" y="600" width="220" height="80" class="data-box" rx="5"/>
+  <text x="710" y="620" class="box-title" text-anchor="middle">✅ Evaluation</text>
+  <text x="710" y="640" class="box-text" text-anchor="middle">• Test harness validates</text>
+  <text x="710" y="660" class="box-text" text-anchor="middle">  scheduling accuracy</text>
+
+  <!-- Logging -->
+  <rect x="80" y="600" width="220" height="80" class="data-box" rx="5"/>
+  <text x="190" y="620" class="box-title" text-anchor="middle">📝 Logging</text>
+  <text x="190" y="640" class="box-text" text-anchor="middle">• AI prompts and responses</text>
+  <text x="190" y="660" class="box-text" text-anchor="middle">• Error tracking</text>
+
+  <!-- Footer -->
+  <text x="450" y="690" class="label" text-anchor="middle">RAG: User → UI → Scheduler → AI (retrieves knowledge) → LLM → Plan + Explanation</text>
+</svg>
