@@ -1,5 +1,5 @@
 {
-  "name": "Faris",
+  "name": "Firas",
   "time_available": 120,
   "pets": [
     {
@@ -8,7 +8,7 @@
       "animal": "Dog",
       "tasks": [
         {
-          "task_name": "Morning walkssss",
+          "task_name": "Morning walks",
           "duration": 20,
           "priority": 2,
           "frequency": "daily",
@@ -18,13 +18,13 @@
           "completed": false
         },
         {
-          "task_name": "davet",
-          "duration": 20,
+          "task_name": "Litter Box Changed",
+          "duration": 15,
           "priority": 3,
           "frequency": "daily",
           "deadline": null,
-          "time": null,
-          "due_date": "2026-03-30",
+          "time": "10:00",
+          "due_date": "2026-04-27",
           "completed": false
         }
       ]
@@ -78,6 +78,50 @@
           "frequency": "daily",
           "deadline": null,
           "time": "15:00",
+          "due_date": "2026-04-27",
+          "completed": false
+        },
+        {
+          "task_name": "Litter Box Changed",
+          "duration": 15,
+          "priority": 3,
+          "frequency": "daily",
+          "deadline": null,
+          "time": "10:15",
+          "due_date": "2026-04-27",
+          "completed": false
+        }
+      ]
+    },
+    {
+      "name": "Maxwell",
+      "dob": "2021-02-19",
+      "animal": "Cat",
+      "tasks": [
+        {
+          "task_name": "Litter Box Changed",
+          "duration": 15,
+          "priority": 3,
+          "frequency": "daily",
+          "deadline": null,
+          "time": "10:00",
+          "due_date": "2026-04-27",
+          "completed": false
+        }
+      ]
+    },
+    {
+      "name": "Jorge",
+      "dob": "2021-02-19",
+      "animal": "Horses",
+      "tasks": [
+        {
+          "task_name": "Brush hair",
+          "duration": 15,
+          "priority": 3,
+          "frequency": "daily",
+          "deadline": null,
+          "time": "11:00",
           "due_date": "2026-04-27",
           "completed": false
         }

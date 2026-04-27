@@ -1,5 +1,8 @@
 # PawPal AI
 
+## Loom Video
+https://www.loom.com/share/a4698501857d491489098457c8ef0489
+
 ## Original Project Summary
 
 The original project, PawPal+ from Modules 1-3, was a Streamlit-based application designed to help busy pet owners maintain consistent pet care routines. It allowed users to input owner and pet information, manage care tasks with priorities, durations, and frequencies, and generate optimized daily schedules that fit within the owner's available time. The system included features like automatic recurrence, conflict detection, task filtering, and persistent storage, with a focus on rule-based scheduling and clear explanations of decisions.
